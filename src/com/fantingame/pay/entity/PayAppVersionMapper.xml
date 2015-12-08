@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.fantingame.pay.dao.PayAppVersionDao">
+    <select id="count" resultType="int">
+        select count(*) c from pay_app_version;
+    </select>
+    <insert id="save">
+      INSERT INTO pay_app_version(versionName,versionInfo,fileUrl,current,forced,createDatetime) 
+      VALUES(#{versionName},#{versionInfo},#{fileUrl},#{current},#{forced},#{createDatetime})
+    </insert>
+    <select id="getEntity"  resultType="com.fantingame.pay.entity.PayAppVersion">
+      SELECT * FROM pay_app_version
+    </select>
+    <select id="getEntityById" parameterType="String" resultType="com.fantingame.pay.entity.PayAppVersion">
+      SELECT * FROM pay_app_version WHERE id=#{id}
+    </select>
+    <delete id="delete" parameterType="String">
+      DELETE FROM pay_app_version WHERE id=#{id}
+    </delete>
+    <update id="update" parameterType="com.fantingame.pay.entity.PayAppVersion">
+      UPDATE pay_app_version
+      SET versionName=#{versionName},versionInfo=#{versionInfo},fileUrl=#{fileUrl},
+      current=#{current},forced=#{forced}
+      WHERE id=#{id}
+    </update>
+    <select id="getLatestVersion" parameterType="String" resultType="com.fantingame.pay.entity.PayAppVersion">
+      SELECT * FROM pay_app_version WHERE current=1
+    </select>
+    <select id="getLatestForcedVersion" parameterType="String" resultType="com.fantingame.pay.entity.PayAppVersion">
+      SELECT * FROM pay_app_version WHERE forced=1 order by versionCode desc limit 1
+    </select>
+</mapper>

@@ -1,0 +1,474 @@
+@charset "utf-8";
+/* CSS Document */
+body,h1,ul,li,h5,h6,p,form,input,div{
+padding:0;
+margin:0;
+font-family:"微软雅黑";
+font-size:14px;
+color:#3c3b3b;
+-webkit-tap-highlight-color:rgba(0,0,0,0);}
+a{
+text-decoration:none;
+outline:none;
+-webkit-tap-highlight-color:rgba(0,0,0,0);
+-webkit-user-select: none;}
+li{
+list-style:none;}
+
+/*common */
+.div-blue{
+text-align:center}
+
+.button-blue{
+height:35px;
+line-height:26px;
+border:1px #1c6390 solid;
+color:#FFFFFF;
+padding:0px 30px;
+margin:10px 0px;
+border-radius:6px;
+background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAjCAYAAABVcWC0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACYSURBVBhXY8g89fc/Q8LRX/8Zog/++M8QtvcLlAjY8eE/g9fm1/8ZnNc9/89gu/LRfwazJff+MxjMvwklNGde/c+gPPXifwa5CWf/M0j2nPzPINZ1/D8Df9UWKMFdsOI/A2/RKiAXRAiACEEQIQQnRIqBXLHi1f8ZJErW/GeQKlv3n0G6Yv1/BvnqzVBCrWXvfwbjSaf/AwCsy1ebgC5eaQAAAABJRU5ErkJggg==") repeat-x;
+}
+.no-input{
+line-height:35px;
+display: inline-block}
+
+.user-name{
+height:20px;
+line-height:20px;
+}
+
+.user-name a,.user-money a{
+color:#3c3b3b;
+text-decoration:underline}
+
+.user-money{
+height:20px;
+line-height:20px;
+
+float:right
+}
+
+.payMode{
+zoom:1;
+overflow:hidden;
+display:block;
+text-align:center;
+margin:10px auto;
+}
+
+.payMode li{
+float:left;
+margin:0px 5px;
+}
+
+.payMode .pic{
+width:80px;
+height:50px;
+line-height:80px;
+display:block;
+border:1px #cecece solid;
+border-radius:8px;
+background:#FFFFFF;
+text-align:center;
+}
+.payMode .text{
+color:#3c3b3b;
+height:30px;
+line-height:30px;}
+
+.payMode li>.pic>span{
+background:url(../images/png.gif);
+display:block;}
+
+.payMode .msg>.pic>span{
+background-position:0px -580px;
+height:31px;
+width:44px;
+margin:9px 17px}
+
+.payMode .mo9>.pic>span{
+background-position:0px -40px;
+height:31px;
+width:68px;
+margin:9px 5px}
+
+.payMode .alipay>.pic>span{
+background-position:0px -100px;
+height:22px;
+width:68px;
+margin:15px 5px}
+
+.payMode .tenpay>.pic>span{
+background-position:0px -160px;
+height:40px;
+width:40px;
+margin:5px 20px}
+
+.payMode .tel>.pic>span{
+background-position:0px -220px;
+height:32px;
+width:52px;
+margin:9px 14px}
+
+.payMode .net>.pic>span{
+background-position:0px -270px;
+height:34px;
+width:53px;
+margin:8px 13px}
+
+.payMode .play>.pic>span{
+background-position:0px -480px;
+height:38px;
+width:45px;
+margin:6px 17px}
+
+.payMode .qqbi>.pic>span{
+background-position:0px -530px;
+height:38px;
+width:31px;
+margin:6px 24px}
+
+.new,.hot,.service,.forgot{
+background:url(../images/png.gif) no-repeat;
+color:#3c3b3b;
+line-height:28px;
+}
+.new{
+padding-right:30px;
+background-position:right -324px;
+}
+.hot{
+padding-right:30px;
+background-position:right -354px;
+}
+
+.service{
+padding-left:30px;
+background-position:0 -386px;
+color:#9a9a9a;
+}
+
+.forgot{
+padding-left:30px;
+background-position:0 -436px;
+color:#9a9a9a;
+}
+
+
+.mode{
+background:#e5ecf1;
+margin:8px;
+border-radius:8px;
+padding-bottom:10px;
+}
+.mode-noBg{
+margin:8px}
+
+.mode h5{
+height:35px;
+line-height:35px;
+color:#FFFFFF;
+font-weight:normal;
+background:#7dc9ff;
+padding:0px 8px;
+border-radius:8px 8px 0px 0px;}
+
+.mode h6{
+height:35px;
+line-height:35px;
+color:#3c3b3b;
+padding:0px 8px;
+}
+
+.mode>div{
+padding:5px 8px;
+font-size:15px;
+color:#3c3b3b;
+line-height:27px;}
+.mode>div.tel-mode{
+padding:0px}
+
+.delete{
+text-decoration: line-through}
+
+.company-info{
+color:#9a9a9a;
+height:50px;
+line-height:50px;
+text-align:center;
+}
+
+.twoWords{
+letter-spacing:30px
+}
+.threeWords{
+letter-spacing:8px
+}
+
+.easou-pay{
+background:url(../images/easouPay.png) no-repeat;
+width:250px;
+height:40px;
+display:block;
+margin:10px auto;
+margin-bottom:20px}
+
+.loginInput{
+height:28px;
+line-height:28px;
+border:1px #cecece solid;
+background-color:#FFFFFF;
+border-radius:5px;
+font-size:14px;
+color:#3c3b3b;
+padding:0px 10px;
+}
+
+.right{
+float:right}
+
+.left{
+float:left}
+
+.blue{
+color:#0276c3}
+
+.red{
+color:#FF0000}
+
+.green{
+color:#23ac38}
+
+
+/*index*/
+.userInfo{
+padding:10px 10px 2px 10px;}
+
+.userInfo .money{
+float:right;
+}
+
+.userInfo .money a{
+	color:black;
+}
+
+
+.recharge {
+height: 20px;
+line-height: 20px;
+padding-right: 20px;
+background: url(../images/png.gif) no-repeat;
+background-position: right -20px;
+}
+
+/*loginTable*/
+.loginTable{
+margin:10px auto;
+display:block;
+font-size:14px;
+width:300px;
+
+}
+
+.loginTable tr{
+height:40px;
+line-height:40px;}
+
+.w-200{
+width:200px;}
+
+.w-220{
+width:220px;}
+
+
+
+/*pay*/
+.payMoney{
+zoom:1;
+overflow:hidden;
+}
+
+.payMoney li{
+width:70px;
+height:28px;
+line-height:28px;
+text-align:center;
+color:#535353;
+border:1px #cecece solid;
+border-radius:8px;
+background:#FFFFFF;
+float:left;
+margin:6px;
+}
+
+
+.payMoney li.on{
+border:1px #f5bd52 solid;
+background:#ffe9bf;
+}
+
+
+
+.manualPay{
+margin:6px 0px;
+zoom:1;
+overflow:hidden;
+
+}
+.manualPay .loginInput{
+margin:0px 6px;
+width:80px;
+}
+
+.getPay{
+height:28px;
+line-height:28px;
+color:#fff;
+border:1px #57a9e3 solid;
+border-radius:8px;
+background:#7dc9ff;
+display:block;
+padding:0px 10px;}
+
+/*tel-pay*/
+.tel-mode{
+zoom:1;
+overflow:hidden;
+
+
+}
+
+#menu{
+background-color: #c5d9e8;
+border-radius:8px 8px 0px 0px;
+height:35px;
+line-height:35px;
+position:relative;
+overflow:hidden;
+}
+.tel-company{
+zoom:1;
+overflow:hidden;
+height:35px;
+line-height:35px;
+
+padding:0px 10px;
+}
+
+.tel-company li{
+text-align:center;
+padding:0px 10px;
+float:left;
+margin:5px 0px 0px 0px;
+height:30px;
+line-height:30px;
+border-radius:8px 8px 0px 0px;
+color:#5374b0;
+
+}
+
+.tel-company li a{
+color:#5374b0;
+}
+
+
+.tel-company li.on{
+background:#e5ecf1;
+color:#3c3b3b;
+font-weight:bolder;
+
+}
+
+.tel-company li.on a{
+color:#3c3b3b;
+}
+
+.tel-money{
+padding:5px 8px;}
+
+
+.tel-money li{
+width:60px;
+}
+
+.gayText{
+padding:0px 10px;
+color:#9a9a9a}
+
+div.gayText{
+line-height:40px;
+color:#535353}
+
+div.gayText .loginInput{
+color:#9a9a9a;
+width:200px;
+}
+
+.net-pay{
+padding:3px 10px;
+zoom:1;
+overflow:hidden}
+
+.net-pay li{
+float:left;
+margin:10px 10px;
+width:100px;
+height:32px;}
+
+.pay-record{
+padding:10px 0px;}
+.pay-record li{
+border-bottom:1px #cbd4db solid;
+padding:5px 10px;}
+
+.q-money li{
+width:70px;}
+
+/*mask*/
+#mask{
+
+ width:100%;
+ position:absolute;
+ top:0px;
+ left:0px}
+ 
+ #mask .maskBg{
+filter:alpha(opacity=22);
+ -moz-opacity:0.22;
+ -khtml-opacity: 0.22;
+ opacity: 0.22;
+ background: #000000;
+ width:100%;
+height:10000px;
+position:absolute;
+z-index:100;
+}
+ 
+#mask .maskContent{
+width:40%;
+position:absolute;
+z-index:101;
+background-color:#000000;
+text-align:center;
+padding:20px;
+filter:alpha(opacity=40);
+ -moz-opacity:0.4;
+ -khtml-opacity: 0.4;
+ opacity: 0.4;
+ border-radius:15px;
+}
+#mask  .maskText{
+width:40%;
+position:absolute;
+color:#FFFFFF;
+font-size:16px;
+z-index:102;
+text-align:center;
+}
+
+.radio{
+	width: 70px;
+	display: inline-block;
+	padding-left: 10px;
+}

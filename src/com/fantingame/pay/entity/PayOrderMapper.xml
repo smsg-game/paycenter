@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.fantingame.pay.dao.PayOrderDao">
+    <select id="count" resultType="int">
+        select count(*) c from pay_order;
+    </select>
+    <insert id="save">
+      INSERT INTO pay_order(invoice,tradeNo,channelId,appId,paidFee,paidCurrency,reqFee,serverStatus,clientStatus,clientMsg,receiveStatus,receiveMsg,createDatetime) 
+      VALUES(#{invoice},#{tradeNo},#{channelId},#{appId},#{paidFee},#{paidCurrency},#{reqFee},#{serverStatus},#{clientStatus},#{receiveStatus},#{receiveMsg},#{clientMsg},#{createDatetime})
+    </insert>
+    <select id="getEntity"  resultType="com.fantingame.pay.entity.PayOrder">
+      SELECT * FROM pay_order
+    </select>
+    <select id="getEntityById" parameterType="String" resultType="com.fantingame.pay.entity.PayOrder">
+      SELECT * FROM pay_order WHERE invoice=#{invoice}
+    </select>
+    <select id="getEntityByInvoice" parameterType="String" resultType="com.fantingame.pay.entity.PayOrder">
+      SELECT * FROM pay_order WHERE invoice=#{invoice}
+    </select>
+    
+    <delete id="delete" parameterType="String">
+      DELETE FROM pay_order WHERE invoice=#{invoice}
+    </delete>
+    <update id="update" parameterType="com.fantingame.pay.entity.PayOrder">
+      UPDATE pay_order
+      SET tradeNo=#{tradeNo},channelId=#{channelId},appId=#{appId},paidFee=#{paidFee}, 
+      paidCurrency=#{paidCurrency},reqFee=#{reqFee}, 
+      serverStatus=#{serverStatus},clientStatus=#{clientStatus},clientMsg=#{clientMsg} ,
+      receiveStatus=#{receiveStatus},receiveMsg=#{receiveMsg}
+      WHERE invoice=#{invoice}
+    </update>
+    
+    <update id="updateWhenPayed"  parameterType="com.fantingame.pay.entity.PayOrder" >
+    	UPDATE pay_order set  serverStatus=#{serverStatus},paidFee=#{paidFee}   WHERE invoice=#{invoice} 
+    </update>
+    
+</mapper>

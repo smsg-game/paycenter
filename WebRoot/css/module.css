@@ -1,0 +1,365 @@
+body{background-color:#fafafa;color:#333;}
+body,h1,ul,li,h5,h6,p,form,input,dt,dd,dl,ol,a,header,footer,img,h1,h2,section{margin:0;padding:0;font-size:14px;font-family:"微软雅黑";}
+a{text-decoration:none;-webkit-tap-highlight-color:rgb(0,0,0,0);}
+li{list-style:none;}
+
+body {
+  font-size: 12.5px !important;
+  color: #010101;
+}
+
+div[data-role=page] {
+  max-width: 960px !important;
+}
+
+.font-striking {
+  color: #ff632c;
+  font-weight: 900;
+}
+
+.font-status {
+  color: #9b9797;
+}
+td > span {
+	padding-left: 4.5em;
+}
+
+.arror-down-to-right {
+	display: block;
+	width: 17px;
+	height: 11px;
+	position: absolute;
+	top: 50%;
+	right: 15px;
+	background: url(../images/icons/arrow-down.png) no-repeat;
+}
+
+.pay-go-bottom {
+  position: absolute;
+  bottom: 15px;
+  width: 92%
+}
+
+/*.ui-grid-a > .ui-block-a { width: 80%; }*/
+/*.ui-grid-a > .ui-block-b { width: 20%; }*/
+
+.ui-body-c, 
+.ui-body-c input, 
+.ui-body-c select, 
+.ui-body-c textarea, 
+.ui-body-c button,
+.ui-btn-up-c,
+.ui-btn-hover-c,
+.ui-btn-down-c,
+.ui-bar-b,
+.ui-bar-b button,
+.ui-btn-active {
+  font-family: 'Microsoft YaHei', '\5FAE\8F6F\96C5\9ED1', '华文细黑', '\534E\6587\7EC6\9ED1', Helvetica, Arial, sans-serif !important;
+  font-weight: normal;
+}
+.ui-page {
+  background-color: #000;
+}
+.ui-submit > .ui-btn-inner > .ui-btn-text,	/* for submit buttons */
+#user-switch .ui-btn > .ui-btn-inner > .ui-btn-text,
+.ui-header .ui-title, 
+.ui-footer .ui-title,
+#page-face > .ui-content > a .ui-btn-text {
+	font-size: 20px;
+	line-height: 24px;
+}
+.span-btn-text {
+	color: #9b9797 !important;
+}
+
+
+/* CSS for button press up styles in index.html and more. */
+/* ------------------------------------------------------ */
+
+.ui-btn-up-c,
+.ui-btn-down-c,
+.ui-btn-hover-c {
+  background: none;
+  background-color: #fff;
+}
+.ui-btn-up-c:visited,
+.ui-btn-up-c a.ui-link-inherit {
+  color: #000;
+}
+.ui-btn-active {
+  text-shadow: none;
+} 
+
+/* ------------------------------------------------------ */
+
+
+.ui-listview li {
+  padding: 1.5em 15px !important;  /* In JMQ: padding: 0.7em 15px; */
+  max-height: 3.5em !important;
+}
+.ui-btn-text,
+textarea.ui-input-text,
+input.ui-input-text {
+  font-size: 14.5px;
+}
+.ui-btn-inner{
+  padding: 0.6em 0;
+  text-overflow: initial; /* Get rid of the ellipsis */
+
+  text-align: center;
+}
+.ui-body-c {
+  background: none;
+  border: none;
+}
+.ui-shadow-inset {
+  box-shadow: none; 
+}
+input.ui-focus, textarea.ui-focus {
+}
+.span-btn-text {
+  padding-top: 2em; 
+}
+.ui-btn-up-c {
+  background: #fff;
+}
+.ui-btn-corner-all {
+  border-radius: 0.4em 0.4em 0.4em 0.4em;
+}
+div[data-role=header] {
+  box-shadow: 0 0 5px 2px #ccc;
+}
+div[data-role=header].ui-bar-b {
+  background: linear-gradient(hsl(199, 83%, 68%), hsl(199, 83%, 50%)) repeat scroll 0% 0% hsl(199, 83%, 50%);
+  border: 1px solid hsl(198, 85%, 60%);
+}
+div[data-role=header] .ui-btn-corner-all {
+  border-radius: 1em 1em 1em 1em;
+}
+
+section {
+	position: relative;
+}
+section:not(:last-child) {
+	padding-bottom: 20px;
+  border-bottom: 2px solid #fff;
+}
+section:not(:last-child):after {
+	position: absolute;
+	bottom: 0;
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;
+}
+#e-pay section:not(:last-child) {
+	border-bottom: 0;
+}
+#e-pay section:not(:last-child):after {
+	height: 0;
+}
+
+.inline-text-input-grid-a.ui-grid-a .ui-block-a {
+  width: 35%;
+  line-height: 3.5em;
+}
+.inline-text-input-grid-a.ui-grid-a .ui-block-b {
+  width: 65%;
+}
+
+li.inline-text-listview-li-padding {
+  padding: 0.8em 15px !important;
+}
+
+.ui-grid-b > a {
+  width: 90%;
+}
+.ui-grid-b > a .ui-btn-text {
+	color: #9b9797;
+}
+
+.pay {
+  /*width: 100%;*/
+  margin-left: 0 auto;
+  min-height: 46px;
+}
+.pay.ui-btn-up-c,
+.pay.ui-btn-hover-c {
+  background: url(../images/parts/btn-blue-vertical-bar.png) repeat-x;
+}
+.pay .ui-btn-text {
+  color: #fff !important;
+  font-size: 17px;
+}
+.pay .ui-btn-inner {
+  border-top: none;
+}
+
+
+#deposit-amount-popup-popup,
+#bank-chooser-popup-popup,
+#mcard-type-popup-popup,
+#mcard-amount-popup-popup,
+#gcard-type-popup-popup,
+#gcard-amount-popup-popup {
+  width: 95%;
+}
+
+#deposit-amount-popup,
+#bank-chooser-popup,
+#mcard-type-popup,
+#mcard-amount-popup,
+#gcard-type-popup,
+#gcard-amount-popup {
+  border: none;
+}
+
+#deposit-amount-popup .ui-btn-inner,
+#bank-chooser-popup .ui-btn-inner,
+#mcard-type-popup .ui-btn-inner,
+#mcard-amount-popup .ui-btn-inner,
+#gcard-type-popup .ui-btn-inner,
+#gcard-amount-popup .ui-btn-inner {
+  padding-left: 20px;
+  text-align: left;
+}
+
+#deposit-amount-popup img,
+#bank-chooser-popup img,
+#mcard-type-popup img,
+#mcard-amount-popup img,
+#gcard-type-popup img,
+#gcard-amount-popup img {
+  padding-right: 5px;
+  vertical-align: middle;
+}
+
+#index .ui-grid-b a,
+#e-pay .ui-grid-b a {
+  width: 90%;
+  height: 5em;
+}
+
+#index-pay-section .ui-block-a > a {
+  background: transparent url(../images/icons/logo-unionpay.png) no-repeat center 0.8em;
+}
+#index-pay-section .ui-block-b > a {
+  background: transparent url(../images/icons/logo-alipay.png) no-repeat center 0.8em;
+}
+#index-pay-section .ui-block-c > a {
+  background: transparent url(../images/icons/logo-mo9.png) no-repeat center 0.8em;
+}
+
+#index-epay-subsection-1 .ui-block-a > a {
+  background: transparent url(../images/icons/logo-sms.png) no-repeat center 0.8em;
+}
+#index-epay-subsection-1 .ui-block-b > a {
+  background: transparent url(../images/icons/logo-phone.png) no-repeat center 0.8em;
+} 
+#index-epay-subsection-1 .ui-block-c > a {
+  background: transparent url(../images/icons/logo-game-card.png) no-repeat center 0.8em;
+}
+
+#index-epay-subsection-2 .ui-block-a > a {
+  background: transparent url(../images/icons/logo-ecoin.png) no-repeat center 0.8em;
+}
+
+
+#epay-pay-subsection-1 .ui-block-a a {
+  background: transparent url(../images/icons/logo-sms.png) no-repeat center 0.8em;
+}
+#epay-pay-subsection-1 .ui-block-b a {
+  background: transparent url(../images/icons/logo-phone.png) no-repeat center 0.8em;
+}
+#epay-pay-subsection-1 .ui-block-c a {
+  background: transparent url(../images/icons/logo-game-card.png) no-repeat center 0.8em;
+}
+#epay-pay-subsection-2 .ui-block-a a {
+  background: transparent url(../images/icons/logo-unionpay.png) no-repeat center 0.8em;
+}
+#epay-pay-subsection-2 .ui-block-b a {
+  background: transparent url(../images/icons/logo-alipay.png) no-repeat center 0.8em;
+}
+#epay-pay-subsection-2 .ui-block-c a {
+  background: transparent url(../images/icons/logo-mo9.png) no-repeat center 0.8em;
+}
+
+/*mask*/
+#mask{
+ width:100%;
+ position:absolute;
+ top:0px;
+ left:0px
+}
+ 
+#mask .maskBg{
+	filter:alpha(opacity=22);
+	-moz-opacity:0.22;
+	-khtml-opacity: 0.22;
+	opacity: 0.22;
+	background: #000000;
+	width:100%;
+	height:10000px;
+	position:absolute;
+	z-index:100;
+}
+ 
+#mask .maskContent{
+	width:65%;
+	position:absolute;
+	z-index:101;
+	background-color:#000000;
+	text-align:center;
+	filter:alpha(opacity=40);
+	-moz-opacity:0.4;
+	-khtml-opacity: 0.4;
+	opacity: 0.4;
+	border-radius:0.4em;
+}
+#mask .maskText{
+	width:65%;
+	position:absolute;
+	color:#FFFFFF;
+	font-size:16px;
+	z-index:102;
+	text-align:center;
+	text-shadow: none;
+}
+
+#waiting-wrapper {
+      position:absolute;
+      width:100%;
+      height: 100%;
+      top:0px;
+      left:0px;
+      background-color: rgba(0,0,0,.4);
+    }
+     
+    #waiting {
+      position:absolute;
+      width:60%;
+      background: #fff;
+      padding:20px;
+      text-align:center;
+      border-radius:15px;
+      z-index:100;
+    }
+     
+
+
+    #waiting-content > .title {
+    
+    }
+    #waiting-content > .content {
+      margin-top: 50px;
+    }
+    
+    #jixu {
+      display: inline-block;
+      background: url(../images/parts/btn-blue-vertical-bar.png) repeat-x;
+      min-height: 46px;
+      min-width: 120px;
+	  line-height: 40px;
+	  color: transparent;
+    }

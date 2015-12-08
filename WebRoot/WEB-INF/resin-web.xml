@@ -1,0 +1,3 @@
+<web-app>
+ <servlet-mapping url-pattern='*.e' servlet-name='plugin_match'/>
+</web-app>

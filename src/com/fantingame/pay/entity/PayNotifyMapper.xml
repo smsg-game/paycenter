@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.fantingame.pay.dao.PayNotifyDao">
+    <select id="count" resultType="int">
+        select count(*) c from pay_notify;
+    </select>
+    <insert id="save">
+      INSERT INTO pay_notify(invoice,tradeNo,channelId,payerId,paidFee,paidCurrency,reqFee,reqCurrency,tradeName,appId,status,createDatetime) 
+      VALUES(#{invoice},#{tradeNo},#{channelId},#{payerId},#{paidFee},#{paidCurrency},#{reqFee},#{reqCurrency},#{tradeName},#{appId},#{status},#{createDatetime})
+    </insert>
+    <select id="getEntity"  resultType="com.fantingame.pay.entity.PayNotify">
+      SELECT * FROM pay_notify
+    </select>
+    <select id="getEntityById" parameterType="String" resultType="com.fantingame.pay.entity.PayNotify">
+      SELECT * FROM pay_notify WHERE id=#{id}
+    </select>
+    <delete id="delete" parameterType="String">
+      DELETE FROM pay_notify WHERE id=#{id}
+    </delete>
+    <update id="update" parameterType="com.fantingame.pay.entity.PayNotify">
+      UPDATE pay_notify
+      SET invoice=#{invoice},tradeNo=#{tradeNo},channelId=#{channelId},payerId=#{payerId},paidCurrency=#{paidCurrency},
+      paidCurrency=#{paidCurrency},reqFee=#{reqFee},reqCurrency=#{reqCurrency},tradeName=#{tradeName},
+      appId=#{appId},status=#{status}
+      WHERE id=#{id}
+    </update>
+</mapper>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir=".." default="jar" name="ftpay">
+	<!-- App name-dependent settings. -->
+	<property name="appname" value="${ant.project.name}" />
+    <property name="build.path" value="${basedir}/dist" />
+	<property name="build.classes.path" value="${build.path}/classes" />
+	<property name="build.bin.path" value="${build.path}/bin" />
+	<property name="build.lib.path" value="${build.path}/lib" />
+	
+	<property name="src.dir" value="${basedir}/src" />
+	<property name="lib.dir" value="${basedir}/src/WebRoot/WEB-INF/lib" />
+	 
+	<path id="lib">  
+	    <fileset file="${build.lib.path}/*.jar" />
+		<fileset file="${lib.dir}/*.jar" />  
+	    <pathelement path="${classes.dir}" />  
+	</path> 
+	
+	<target name="clean">
+		<delete dir="${build.classes.path}" />
+		<delete dir="${build.bin.path}" />
+		<mkdir  dir="${build.classes.path}" />
+		<mkdir  dir="${build.bin.path}" />
+	</target>
+	
+	<target name="compile" depends="clean">
+		<javac srcdir="${src.dir}" destdir="${build.classes.path}"  debug="true" encoding="UTF-8">
+			<classpath refid="lib" />  
+		</javac>
+		<copy todir="${build.classes.path}" overwrite="true">  
+		    <fileset dir="${src.dir}">  
+		        <include name="**/*.xml" />  
+		        <include name="**/*.properties" />  
+		    </fileset>  
+		</copy>
+	</target>
+	
+	<target name="jar" depends="compile">  
+	    <jar jarfile="${build.bin.path}/${ant.project.name}.jar">  
+	       <fileset dir="${build.classes.path}">  
+	           <include name="**/*" />
+	       </fileset>  
+	    </jar>  
+	</target> 
+	
+</project>

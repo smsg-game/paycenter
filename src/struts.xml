@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<constant name="struts.action.extension" value="e" />
+	
+	<package name="global" namespace="/" extends="json-default">
+		<interceptors>
+			<interceptor name="authority" class="com.fantingame.pay.interceptor.LoginInterceptor" />
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="defaultStack"/>
+				<interceptor-ref name="authority" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="myStack"/>
+		<global-results>
+			<result name="login" type="redirect">/login.e?bu=${target_url}&amp;source=interceptor</result>
+			<result name="reqFee" type="redirect">${reqFee}</result>
+			<result name="appException">/error.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="redirect" type="redirect">${resultUrl}</result>
+			<result name="dispatcher" type="dispatcher">${resultUrl}</result>
+			<result name="json" type="json">
+			  <param name="ignoreHierarchy">false</param>
+		      <param name="includeProperties">status,msg</param>
+		  </result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="appException" exception="java.lang.Exception" />
+			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
+		</global-exception-mappings>
+
+		<!-- 边锋两个旧的notify接口 -->
+		<action name="notifyFromMo9" class="com.fantingame.pay.action.mobile.old.NotifyFromMo9Action"></action>
+		<action name="notifyFromAlipay" class="com.fantingame.pay.action.mobile.old.NotifyFromAlipayAction"></action>
+		
+		<!-- 用户登录 -->
+		<action name="login" class="com.fantingame.pay.action.common.LoginAction" method="login">
+			<result name="success" type="redirect">${bu}</result>
+			<result name="fail" type="redirect">loginFail.e?bu=${bu}&amp;errMsg=${errMsg}</result>
+		</action>
+		<!-- 用户登录失败 -->
+		<action name="loginFail" class="com.fantingame.pay.action.common.LoginAction" method="loginFail">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/mobile/user/register.jsp</result>
+		</action>
+		<!-- 一键注册 -->
+		<action name="register" class="com.fantingame.pay.action.common.LoginAction" method="register">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/mobile/user/register_success.jsp</result>
+		</action>
+		
+	</package>
+	
+	<package name="service" namespace="/service" extends="struts-default">
+		<action name="manager" class="com.fantingame.pay.action.common.ManagerAction"></action>
+		<action name="notifyFromYeepay" class="com.fantingame.pay.action.mobile.notify.NotifyFromYeePayAction"></action>
+		<action name="notifyFromMo9" class="com.fantingame.pay.action.mobile.notify.NotifyFromMo9Action"></action>
+		<action name="notifyFromAlipay" class="com.fantingame.pay.action.mobile.notify.NotifyFromAlipayAction"></action>
+		<action name="wapNotifyFromAlipay" class="com.fantingame.pay.action.mobile.notify.WapNotifyFromAlipayAction"></action>
+		<action name="notifyFrom99bill" class="com.fantingame.pay.action.mobile.notify.NotifyFrom99BillAction"></action>
+		<action name="notifyFromEasouSms" class="com.fantingame.pay.action.mobile.notify.NotifyFromEasouSmsAction"></action>
+		<action name="notifyFromYhxfSms" class="com.fantingame.pay.action.mobile.notify.NotifyFromYhxfSmsAction"></action>
+		<action name="notifyFromUnionPay" class="com.fantingame.pay.action.mobile.notify.NotifyFromUnionPayAction"></action>
+		<action name="payConfirmOfMo9" class="com.fantingame.pay.action.mobile.confirm.PayConfirmOfMo9Action"></action>
+		<action name="payConfirmOfAlipay" class="com.fantingame.pay.action.mobile.confirm.PayConfirmOfAlipayAction"></action>
+		<action name="payConfirmOfYeepay" class="com.fantingame.pay.action.mobile.confirm.PayConfirmOfYeePayAction"></action>
+		<action name="moduleNotifyFromAlipay" class="com.fantingame.pay.action.module.notify.ModuleNotifyFromAlipayAction"></action>
+		<action name="moduleTerNotifyFromAlipay" class="com.fantingame.pay.action.module.notify.ModuleTerNotifyFromAlipayAction"></action>
+		<!-- mycard提供差异报表(SDK) -->
+		<action name="mycardSdkService" class="com.fantingame.pay.action.mobile.notify.NotifyFromMyCardAction" method="mycardSdkService">
+		</action>
+		<!-- mycard提供差异报表(API) -->
+		<action name="mycardApiService" class="com.fantingame.pay.action.mobile.notify.NotifyFromMyCardAction" method="mycardApiService">
+		</action>
+		<!-- mycardAPIPayment点卡支付回调-->
+		<action name="mycardAPIPayment" class="com.fantingame.pay.action.mobile.notify.NotifyFromMyCardAction" method="mycardAPIPayment">
+		</action>
+		<!-- mycard钱包支付回调-->
+		<action name="mycardSDKPayment" class="com.fantingame.pay.action.mobile.notify.NotifyFromMyCardAction" method="mycardSDKPayment">
+		</action>
+		<!-- mol回调支付回调地址 -->
+		<action name="molCallBack" class="com.fantingame.pay.action.mobile.notify.NotifyFromMolAction" method="molCallBack">
+		</action>
+		<!-- 测试，模拟游戏商接受notify通知 -->
+		<action name="test" class="test.ImitateAction"></action>
+	</package>
+
+    <!-- 都是些老接口 -->
+	<package name="json" namespace="/json" extends="json-default">
+		<action name="trade" class="com.fantingame.pay.action.mobile.old.TradeAction">
+			<result name="success" type="json" />
+		</action>
+		<action name="order" class="com.fantingame.pay.action.mobile.old.OrderAction">
+			<result name="success" type="json" />
+		</action>
+		<action name="checkVersion" class="com.fantingame.pay.action.common.CheckVersionAction">
+			<result name="success" type="json" />
+		</action>
+		<action name="userEb" class="com.fantingame.pay.action.mobile.UserAction" method="userEb">
+			<result name="success" type="json"><param name="includeProperties">ebNum</param></result>
+		</action>
+		<action name="tradeByEbForBookMall" class="com.fantingame.pay.action.mobile.UserAction" method="tradeByEbForBookMall"></action>
+	</package>	
+	
+	<include file="struts-wap.xml"></include>
+	<include file="struts-wapc.xml"></include>
+    <include file="struts-mobile.xml"></include>
+    <include file="struts-module.xml"></include>
+    <include file="struts-ecenter.xml"></include>
+    <include file="struts-pc.xml"></include>
+</struts>

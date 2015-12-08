@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.fantingame.pay.dao.PayUserTradeHistoryDao">
+
+     <select id="count" resultType="int">
+        select count(*) c from pay_user_trade_history;
+    </select>
+    
+    <select id="getEntity"  resultType="com.fantingame.pay.entity.PayUserTradeHistory">
+      SELECT * FROM pay_user_trade_history
+    </select>
+    <select id="getEntityById" parameterType="String" resultType="com.fantingame.pay.entity.PayUserTradeHistory">
+      SELECT * FROM pay_user_trade_history WHERE id=#{id}
+    </select>
+    <delete id="delete" parameterType="String">
+      DELETE FROM pay_user_trade_history WHERE id=#{id}
+    </delete>
+    <update id="update" parameterType="com.fantingame.pay.entity.PayUserTradeHistory">
+      UPDATE pay_user_trade_history SET userID=#{userID},userName=#{userName},invoice=#{invoice},
+      tradeName=#{tradeName},paidFee=#{paidFee},channelName=#{channelName},type=#{type}
+      WHERE id=#{id}
+    </update>
+
+	<insert id="save" parameterType="com.fantingame.pay.entity.PayUserTradeHistory">
+		insert into pay_user_trade_history(userId,userName,invoice,tradeName,paidFee,channelName,type)
+		values(#{userID},#{userName},#{invoice},#{tradeName},#{paidFee},#{channelName},#{type})
+	</insert>
+	
+	<select id="getTradeHistoryByUserId" parameterType="com.fantingame.pay.entity.PayUserTradeHistory" resultType="com.fantingame.pay.entity.PayUserTradeHistory">
+		select * from pay_user_trade_history where userId=#{userID}
+		order by id desc limit #{startIndex},#{endIndex} 
+	</select>
+	
+	<select id="getTradeHisByUserId" parameterType="com.fantingame.pay.entity.PayUserTradeHistory" resultType="com.fantingame.pay.action.ecenter.vo.UserTradeHis">
+		select * from pay_user_trade_history where userId=#{userID}
+		order by id desc limit #{startIndex},#{endIndex} 
+	</select>
+	
+	<select id="getTradeHisPCByUserId" parameterType="com.fantingame.pay.entity.PayUserTradeHistory" resultType="com.fantingame.pay.action.ecenter.vo.UserTradeHis">
+		select * from pay_user_trade_history where userId=#{userID}
+		<if test="startTime != null">
+			<![CDATA[ AND createDateTime >= #{startTime} ]]>
+		</if>
+		<if test="endTime != null">
+			<![CDATA[ AND createDateTime <= #{endTime} ]]>
+		</if>
+		AND (channelName = '支付宝-PC版' OR channelName = '腾讯-财付通')
+		order by id desc limit #{startIndex},#{endIndex} 
+	</select>
+	
+	<select id="getTradeHistoryByUserIdCount" parameterType="Long" resultType="int">
+		select count(*) from pay_user_trade_history where userId=#{userId}
+	</select>
+	
+	<select id="getTradeHistoryPCByUserIdCount" parameterType="com.fantingame.pay.entity.PayUserTradeHistory" resultType="int">
+		select count(*) from pay_user_trade_history where userId=#{userID}
+		<if test="startTime != null">
+			<![CDATA[ AND createDateTime >= #{startTime} ]]>
+		</if>
+		<if test="endTime != null">
+			<![CDATA[ AND createDateTime <= #{endTime} ]]>
+		</if>
+		AND (channelName = '支付宝-PC版' OR channelName = '腾讯-财付通')
+	</select>
+ 
+</mapper>

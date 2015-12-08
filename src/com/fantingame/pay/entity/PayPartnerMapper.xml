@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.fantingame.pay.dao.PayPartnerDao">
+    <!-- 缓存30分钟 -->
+    <cache flushInterval="1800000" size="1024" readOnly="true" eviction="LRU"></cache>
+    
+    <select id="count" resultType="int">
+        select count(*) c from pay_partner;
+    </select>
+    <insert id="save">
+      INSERT INTO pay_partner(name,publicKey,privateKey,partnerPublicKey,secretKey,encryptType,createDatetime) 
+      VALUES(#{name},#{publicKey},#{privateKey},#{partnerPublicKey},#{secretKey},#{encryptType},#{createDatetime})
+    </insert>
+    <select id="getEntity"  resultType="com.fantingame.pay.entity.PayPartner">
+      SELECT * FROM pay_partner
+    </select>
+    <select id="getEntityById" parameterType="Long" resultType="com.fantingame.pay.entity.PayPartner" useCache="true">
+      SELECT * FROM pay_partner WHERE id=#{id}
+    </select>
+    <delete id="delete" parameterType="String">
+      DELETE FROM pay_partner WHERE id=#{id}
+    </delete>
+    <update id="update" parameterType="com.fantingame.pay.entity.PayPartner">
+      UPDATE pay_partner
+      SET name=#{name},publicKey=#{publicKey},privateKey=#{privateKey},partnerPublicKey=#{partnerPublicKey},secretKey=#{secretKey},encryptType=#{encryptType}
+      WHERE id=#{id}
+    </update>
+</mapper>

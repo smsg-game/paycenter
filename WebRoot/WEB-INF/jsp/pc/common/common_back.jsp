@@ -1,0 +1,2 @@
+<input type="hidden" id="android_com_easou_pay_per_url" name="android_com_easou_pay_per_url" value=""/>
+<input type="hidden" id="android_com_easou_pay_pagetag"  name="android_com_easou_pay_pagetag" value=""/>

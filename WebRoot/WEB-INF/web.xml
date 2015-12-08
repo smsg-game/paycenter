@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath*:applicationContext*.xml</param-value>
+	</context-param>
+
+	<filter>
+		<filter-name>EncodingFilter</filter-name>
+		<filter-class>com.fantingame.pay.interceptor.EncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>EncodingFilter</filter-name>
+		<url-pattern>*.e</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>EncodingFilter</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+	
+    <!-- 测试的时候打印调试日志，上线时可以去掉 -->
+	<filter>
+		<filter-name>CourseWriter</filter-name>
+		<filter-class>com.fantingame.pay.interceptor.RequestFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CourseWriter</filter-name>
+		<url-pattern>*</url-pattern>
+	</filter-mapping>
+    
+	<filter>
+		<filter-name>MemSessionFilter</filter-name>
+		<filter-class>com.fantingame.pay.session.MemSessionFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>MemSessionFilter</filter-name>
+		<url-pattern>*.e</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>MemSessionFilter</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+
+
+
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter
+		</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+
+	<servlet>
+		<servlet-name>initServlet</servlet-name>
+		<servlet-class>com.fantingame.pay.servlet.InitServlet</servlet-class>
+		<load-on-startup>99</load-on-startup>
+	</servlet>
+	
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>

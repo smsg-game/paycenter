@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="wapc" namespace="/wapc" extends="global">
+		<global-results>
+			<result name="error" type="dispatcher">/WEB-INF/jsp/wap/result/error.jsp</result>
+			<result name="pay_result" type="dispatcher">/WEB-INF/jsp/wap/result/result.jsp</result>
+		</global-results>
+		
+		<!--下单接口-->
+		<action name="trade" class="com.fantingame.pay.action.wapc.TradeAction">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/wapc/trade.jsp</result>
+		</action>
+		
+		<!--下单接口-->
+		<action name="tradeResult" class="com.fantingame.pay.action.wapc.TradeResultAction">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/wapc/result/tradeResult.jsp</result>
+		</action>
+		
+		<!--EB支付接口接口-->
+		<action name="eb" class="com.fantingame.pay.action.wapc.EbAction">
+			<result name="trade" type="dispatcher">/WEB-INF/jsp/wapc/trade.jsp</result>
+		</action>
+		
+		<!--摩9接口-->
+		<action name="mo9" class="com.fantingame.pay.action.wapc.Mo9Action">
+		   <result name="redirect" type="redirect">${redirectUrl}</result>
+		</action>
+		
+		<!--支付宝网页接口-->
+		<action name="ali" class="com.fantingame.pay.action.wapc.AlipayAction">
+		   <result name="redirect" type="redirect">${redirectUrl}</result>
+		</action>
+		
+		<!--卡类支付，根据不同的卡类跳转到不同的卡号密码输入页面-->
+		<action name="card" class="com.fantingame.pay.action.wapc.CardAction">
+		    <result name="success" type="dispatcher">/WEB-INF/jsp/wapc/result/result.jsp</result>
+			<result name="dianxin" type="dispatcher">/WEB-INF/jsp/wapc/card/dianxin.jsp</result>
+			<result name="junwang" type="dispatcher">/WEB-INF/jsp/wapc/card/junwang.jsp</result>
+			<result name="liantong" type="dispatcher">/WEB-INF/jsp/wapc/card/liantong.jsp</result>
+			<result name="qq" type="dispatcher">/WEB-INF/jsp/wapc/card/qq.jsp</result>
+			<result name="shengda" type="dispatcher">/WEB-INF/jsp/wapc/card/shengda.jsp</result>
+			<result name="wanmei" type="dispatcher">/WEB-INF/jsp/wapc/card/wanmei.jsp</result>
+			<result name="yidong" type="dispatcher">/WEB-INF/jsp/wapc/card/yidong.jsp</result>
+			<result name="zhengtu" type="dispatcher">/WEB-INF/jsp/wapc/card/zhengtu.jsp</result>
+		</action>
+		
+		<!--用于处理完成支付后页面回调接口-->
+		<action name="redirect" class="com.fantingame.pay.action.wapc.RedirectAction">
+		    <result name="redirect" type="redirect">${redirectUrl}</result>
+			<result name="success" type="dispatcher">/WEB-INF/jsp/wapc/result/result.jsp</result>
+			<result name="charge">/WEB-INF/jsp/wapc/charge/select_channel.jsp</result>
+		</action>
+		
+		<!-- 用户详细信息页 -->
+		<action name="userDetail" class="com.fantingame.pay.action.wapc.UserAction" method="userDetail">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/wapc/user/user_detail.jsp</result>
+		</action>
+		
+		<!-- 充值 -->
+		<action name="charge" class="com.fantingame.pay.action.wapc.ChargeAction">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/wapc/charge/select_channel.jsp</result>
+			<result name="select_amount_ali" type="dispatcher">/WEB-INF/jsp/wapc/charge/select_amount_common.jsp</result>
+			<result name="select_amount_mo9" type="dispatcher">/WEB-INF/jsp/wapc/charge/select_amount_common.jsp</result>
+			<result name="select_amount_sms" type="dispatcher">/WEB-INF/jsp/wapc/charge/select_amount_sms.jsp</result>
+			<result name="select_amount_qq" type="dispatcher">/WEB-INF/jsp/wapc/charge/select_amount_qq.jsp</result>
+			<result name="select_amount_yidong" type="dispatcher">/WEB-INF/jsp/wapc/charge/select_amount_yidong.jsp</result>
+			<result name="select_amount_dianxin" type="dispatcher">/WEB-INF/jsp/wapc/charge/select_amount_dianxin.jsp</result>
+			<result name="select_amount_liantong" type="dispatcher">/WEB-INF/jsp/wapc/charge/select_amount_liantong.jsp</result>
+			<result name="select_amount_shengda" type="dispatcher">/WEB-INF/jsp/wapc/charge/select_amount_shengda.jsp</result>
+			<result name="select_amount_wanmei" type="dispatcher">/WEB-INF/jsp/wapc/charge/select_amount_wanmei.jsp</result>
+			<result name="select_amount_zhengtu" type="dispatcher">/WEB-INF/jsp/wapc/charge/select_amount_zhengtu.jsp</result>
+			<result name="select_amount_junwang" type="dispatcher">/WEB-INF/jsp/wapc/charge/select_amount_junwang.jsp</result>
+		</action>
+		
+		<action name="sms" class="com.fantingame.pay.action.wapc.SmsAction">
+		    <result name="sms_easou" type="dispatcher">/wapc/smsEasou.e</result>
+		    <result name="sms_yhxf" type="dispatcher">/WEB-INF/jsp/wapc/sms/yhxf/select_amount.jsp</result>
+		    <result name="sms_yhxf_app" type="dispatcher">/WEB-INF/jsp/mobile/sms/yhxf/select_amount.jsp</result>
+		</action>
+		<action name="smsEasou" class="com.fantingame.pay.action.wapc.SmsEasouAction">
+		    <result name="success" type="dispatcher">/WEB-INF/jsp/wapc/sms/easou/check_success.jsp</result>
+		    <result name="fail" type="dispatcher">/WEB-INF/jsp/wapc/sms/easou/check_fail.jsp</result>
+		</action>
+		<action name="smsYhxf" class="com.fantingame.pay.action.wapc.SmsYhxfAction">
+		    <result name="success" type="dispatcher">/WEB-INF/jsp/wapc/sms/yhxf/check_success.jsp</result>
+		</action>
+	</package>
+
+</struts>

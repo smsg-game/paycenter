@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.fantingame.pay.dao.PayTradeDao">
+    <select id="count" resultType="int">
+        select count(*) c from pay_trade;
+    </select>
+    <insert id="save">
+      INSERT INTO pay_trade(invoice,partnerId,tradeId,tradeName,tradeDesc,reqFee,paidFee,currency,notifyUrl,redirectUrl,appId,separable,payerId,easouId,qn,imei,extInfo,status,createDatetime,cookieQn) 
+      VALUES(#{invoice},#{partnerId},#{tradeId},#{tradeName},#{tradeDesc},#{reqFee},#{paidFee},#{currency},#{notifyUrl},#{redirectUrl},#{appId},#{separable},#{payerId},#{easouId},#{qn},#{imei},#{extInfo},#{status},#{createDatetime},#{cookieQn})
+    </insert>
+    <select id="getEntity"  resultType="com.fantingame.pay.entity.PayTrade">
+      SELECT * FROM pay_trade
+    </select>
+    <select id="getEntityById" parameterType="String" resultType="com.fantingame.pay.entity.PayTrade">
+      SELECT * FROM pay_trade WHERE invoice=#{invoice}
+    </select>
+    <select id="getEntityByInvoice" parameterType="String" resultType="com.fantingame.pay.entity.PayTrade">
+      SELECT * FROM pay_trade WHERE invoice=#{invoice}
+    </select>
+    <delete id="delete" parameterType="String">
+      DELETE FROM pay_trade WHERE invoice=#{invoice}
+    </delete>
+    <update id="update" parameterType="com.fantingame.pay.entity.PayTrade">
+      UPDATE pay_trade
+      SET partnerId=#{partnerId},tradeId=#{tradeId},tradeName=#{tradeName},
+      tradeDesc=#{tradeDesc},reqFee=#{reqFee},paidFee=#{paidFee},currency=#{currency},notifyUrl=#{notifyUrl},redirectUrl=#{redirectUrl},
+      appId=#{appId},separable=#{separable},payerId=#{payerId},easouId=#{easouId},qn=#{qn},imei=#{imei},extInfo=#{extInfo},
+      status=#{status},notifyStatus=#{notifyStatus},successDatetime=#{successDatetime}
+      WHERE invoice=#{invoice}
+    </update>
+    <select id="getByPartnerIdAndTradeId" parameterType="com.fantingame.pay.entity.PayTrade" resultType="com.fantingame.pay.entity.PayTrade">
+      SELECT * FROM pay_trade WHERE partnerId=#{partnerId} and tradeId=#{tradeId}
+    </select>
+    <select id="getNotifyTask" parameterType="com.fantingame.pay.entity.PayTrade" resultType="com.fantingame.pay.entity.PayTrade">
+      SELECT * FROM pay_trade WHERE status=1 and notifyStatus!=1 limit 200
+    </select>
+    <update id="updNotifyStatus" parameterType="com.fantingame.pay.entity.PayTrade">
+      UPDATE pay_trade
+      SET notifyStatus=#{notifyStatus}
+      WHERE invoice=#{invoice}
+    </update>
+</mapper>

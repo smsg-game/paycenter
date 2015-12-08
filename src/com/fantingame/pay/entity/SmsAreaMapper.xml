@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.fantingame.pay.dao.SmsAreaDao">
+    <select id="count" resultType="int">
+        select count(*) c from sms_area;
+    </select>
+    <insert id="save">
+      INSERT INTO sms_area(province,city,fid) 
+      VALUES(#{province},#{city},#{fid})
+    </insert>
+    <select id="getEntity"  resultType="com.fantingame.pay.entity.SmsArea">
+      SELECT * FROM sms_area
+    </select>
+    <select id="getEntityById" parameterType="String" resultType="com.fantingame.pay.entity.SmsArea">
+      SELECT * FROM sms_area WHERE id=#{id}
+    </select>
+    <delete id="delete" parameterType="String">
+      DELETE FROM sms_area WHERE id=#{id}
+    </delete>
+    <update id="update" parameterType="com.fantingame.pay.entity.SmsArea">
+      UPDATE sms_area
+      SET province=#{province},city=#{city},fid=#{fid}
+      WHERE id=#{id}
+    </update>
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.fantingame.pay.dao.SmsRuleDao">
+    <select id="count" resultType="int">
+        select count(*) c from sms_rule;
+    </select>
+    <insert id="save">
+      INSERT INTO sms_rule(channelId,province,city,time,optCmcc,optUnicom,optTelecom,status) 
+      VALUES(#{channelId},#{province},#{city},#{time},#{optCmcc},#{optUnicom},#{optTelecom},#{status})
+    </insert>
+    <select id="getEntity"  resultType="com.fantingame.pay.entity.SmsRule">
+      SELECT * FROM sms_rule
+    </select>
+    <select id="getEntityById" parameterType="String" resultType="com.fantingame.pay.entity.SmsRule">
+      SELECT * FROM sms_rule WHERE id=#{id}
+    </select>
+    <delete id="delete" parameterType="String">
+      DELETE FROM sms_rule WHERE id=#{id}
+    </delete>
+    <update id="update" parameterType="com.fantingame.pay.entity.SmsRule">
+      UPDATE sms_rule
+      SET channelId=#{channelId},province=#{province},city=#{city},time=#{time},
+      optCmcc=#{optCmcc},optUnicom=#{optUnicom},optTelecom=#{optTelecom},status=#{status}
+      WHERE id=#{id}
+    </update>
+    <select id="getEntityByCity" parameterType="com.fantingame.pay.entity.SmsRule" resultType="com.fantingame.pay.entity.SmsRule">
+       select * from sms_rule where channelId=#{channelId} and province=#{province} and city=#{city}
+    </select>
+</mapper>

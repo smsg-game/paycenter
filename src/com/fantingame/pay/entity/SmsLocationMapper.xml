@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.fantingame.pay.dao.SmsLocationDao">
+    <!-- 缓存1天 -->
+    <cache flushInterval="86400000" size="1024" readOnly="true" eviction="LRU"></cache>
+    
+    <select id="count" resultType="int">
+        select count(*) c from sms_location;
+    </select>
+    <insert id="save">
+      INSERT INTO sms_location(mobile,province,city,operator,type,createDatetime) 
+      VALUES(#{mobile},#{province},#{city},#{operator},#{type},#{createDatetime})
+    </insert>
+    <select id="getEntity"  resultType="com.fantingame.pay.entity.SmsLocation">
+      SELECT * FROM sms_location
+    </select>
+    <select id="getEntityById" parameterType="String" resultType="com.fantingame.pay.entity.SmsLocation">
+      SELECT * FROM sms_location WHERE id=#{id}
+    </select>
+    <select id="getEntityByMobile" parameterType="String" resultType="com.fantingame.pay.entity.SmsLocation" useCache="true">
+      SELECT * FROM sms_location WHERE mobile=#{mobile}
+    </select>
+    <delete id="delete" parameterType="String">
+      DELETE FROM sms_location WHERE id=#{id}
+    </delete>
+    <update id="update" parameterType="com.fantingame.pay.entity.SmsLocation">
+      UPDATE sms_location
+      SET mobile=#{mobile},province=#{province},city=#{city},operator=#{operator},type=#{type}
+      WHERE id=#{id}
+    </update>
+</mapper>

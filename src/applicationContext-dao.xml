@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans     
+       http://www.springframework.org/schema/beans/spring-beans-3.1.xsd    
+       http://www.springframework.org/schema/context     
+       http://www.springframework.org/schema/context/spring-context-3.1.xsd    
+       http://www.springframework.org/schema/tx     
+       http://www.springframework.org/schema/tx/spring-tx-3.1.xsd    
+       http://www.springframework.org/schema/aop     
+       http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+	  
+	 <!-- 配置事务管理器-->
+	  <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		 <property name="dataSource" ref="dataSource"/>
+	  </bean>    
+
+	  <tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" read-only="true" propagation="SUPPORTS" />
+			<tx:method name="add*" propagation="REQUIRED"
+				  rollback-for="Exception" />
+			<tx:method name="del*" propagation="REQUIRED"
+				 rollback-for=" Exception" />
+			<tx:method name="upd*" propagation="REQUIRED"
+				  rollback-for="Exception" />
+		</tx:attributes>
+	</tx:advice>
+	  
+	  <!-- 那些类那些方法使用事务 -->
+	  <aop:config>
+		<aop:pointcut id="allManagerMethod" expression="execution(* com.fantingame.pay.manager.*Manager.*(..))"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="allManagerMethod"/>
+	  </aop:config>
+	  <!--
+	 <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>java:comp/env/jdbc/ftPay</value>
+		</property>
+    </bean>-->
+      
+     <!--   -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">  
+	<property name="driverClassName">  
+	<value>com.mysql.jdbc.Driver</value>  
+	</property>  
+	<property name="url">  
+	<value>jdbc:mysql://192.168.1.8:3306/ftpay?useUnicode=true&amp;characterEncoding=utf8</value>  
+	</property>  
+	<property name="username">  
+	<value>zgame</value>  
+	</property>  
+	<property name="password">  
+	<value>zgame@123</value>  
+	</property>  
+	</bean> 
+	
+    <!-- 配置sessionFactory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" scope="singleton">
+        <property name="configLocation" value="classpath:mybatis-config.xml"></property>
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <!-- dao层 -->
+    <bean id="payAppVersionDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.fantingame.pay.dao.PayAppVersionDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    <bean id="payNotifyDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.fantingame.pay.dao.PayNotifyDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    <bean id="payNotifyPushDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.fantingame.pay.dao.PayNotifyPushDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    <bean id="payUserBindHistoryDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.fantingame.pay.dao.PayUserBindHistoryDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    <bean id="payTradeDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.fantingame.pay.dao.PayTradeDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    <bean id="payOrderDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.fantingame.pay.dao.PayOrderDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    <bean id="payEbDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.fantingame.pay.dao.PayEbDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    <bean id="payPartnerDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.fantingame.pay.dao.PayPartnerDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    <bean id="payChannelDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.fantingame.pay.dao.PayChannelDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    <bean id="payUserAccountDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.fantingame.pay.dao.PayUserAccountDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+     <bean id="payUserTradeHistoryDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.fantingame.pay.dao.PayUserTradeHistoryDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    
+    <bean id="smsAreaDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.fantingame.pay.dao.SmsAreaDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    <bean id="smsBlackListDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.fantingame.pay.dao.SmsBlackListDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    <bean id="smsChannelDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.fantingame.pay.dao.SmsChannelDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    <bean id="smsLocationDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.fantingame.pay.dao.SmsLocationDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    <bean id="smsRuleDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.fantingame.pay.dao.SmsRuleDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    <bean id="smsSendedDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.fantingame.pay.dao.SmsSendedDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    <bean id="maskDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="com.fantingame.pay.dao.PayMaskDao"></property>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+    </bean>
+    
+    <!-- manager层 -->
+    <bean id="payAppVersionManager" class="com.fantingame.pay.manager.impl.PayAppVersionManagerImpl">
+        <property name="payAppVersionDao" ref="payAppVersionDao"></property>
+    </bean>
+    <bean id="payNotifyManager" class="com.fantingame.pay.manager.impl.PayNotifyManagerImpl">
+        <property name="payNotifyDao" ref="payNotifyDao"></property>
+    </bean>
+    <bean id="payNotifyPushManager" class="com.fantingame.pay.manager.impl.PayNotifyPushManagerImpl">
+        <property name="payNotifyPushDao" ref="payNotifyPushDao"></property>
+    </bean>
+    <bean id="payUserBindHistoryManager" class="com.fantingame.pay.manager.impl.PayUserBindHistoryManagerImpl">
+        <property name="payUserBindHistoryDao" ref="payUserBindHistoryDao"></property>
+    </bean>
+    <bean id="payTradeManager" class="com.fantingame.pay.manager.impl.PayTradeManagerImpl">
+        <property name="payTradeDao" ref="payTradeDao"></property>
+    </bean>
+    <bean id="payOrderManager" class="com.fantingame.pay.manager.impl.PayOrderManagerImpl">
+        <property name="payOrderDao" ref="payOrderDao"></property>
+    </bean>
+    <bean id="payPartnerManager" class="com.fantingame.pay.manager.impl.PayPartnerManagerImpl">
+        <property name="payPartnerDao" ref="payPartnerDao"></property>
+    </bean>
+    <bean id="payChannelManager" class="com.fantingame.pay.manager.impl.PayChannelManagerImpl">
+        <property name="payChannelDao" ref="payChannelDao"></property>
+    </bean>
+    <bean id="payUserAccountManager" class="com.fantingame.pay.manager.impl.PayUserAccountManagerImpl">
+        <property name="payUserAccountDao" ref="payUserAccountDao"></property>
+        <property name="payUserTradeHistoryDao" ref="payUserTradeHistoryDao"></property>
+        <property name="payUserBindHistoryDao" ref="payUserBindHistoryDao"></property>
+    </bean>
+    <!-- eb支付 -->
+     <bean id="payEbManager" class="com.fantingame.pay.manager.impl.PayEbManagerImpl">
+        <property name="payEbDao" ref="payEbDao"></property>
+        <property name="payTradeDao" ref="payTradeDao"></property>
+        <property name="payUserAccountManager" ref="payUserAccountManager"></property>
+        <property name="payChannelDao" ref="payChannelDao"></property>
+    </bean>
+    <bean id="smsAreaManager" class="com.fantingame.pay.manager.impl.SmsAreaManagerImpl">
+        <property name="smsAreaDao" ref="smsAreaDao"></property>
+    </bean>
+    <bean id="smsBlackListManager" class="com.fantingame.pay.manager.impl.SmsBlackListManagerImpl">
+        <property name="smsBlackListDao" ref="smsBlackListDao"></property>
+    </bean>
+    <bean id="smsChannelManager" class="com.fantingame.pay.manager.impl.SmsChannelManagerImpl">
+        <property name="smsChannelDao" ref="smsChannelDao"></property>
+    </bean>
+    <bean id="smsLocationManager" class="com.fantingame.pay.manager.impl.SmsLocationManagerImpl">
+        <property name="smsLocationDao" ref="smsLocationDao"></property>
+    </bean>
+    <bean id="smsRuleManager" class="com.fantingame.pay.manager.impl.SmsRuleManagerImpl">
+        <property name="smsRuleDao" ref="smsRuleDao"></property>
+    </bean>
+     <bean id="smsSendedManager" class="com.fantingame.pay.manager.impl.SmsSendedManagerImpl">
+        <property name="smsSendedDao" ref="smsSendedDao"></property>
+    </bean>
+      <bean id="maskManager" class="com.fantingame.pay.manager.impl.PayMaskManagerImpl">
+        <property name="maskDao" ref="maskDao"></property>
+    </bean>
+</beans>

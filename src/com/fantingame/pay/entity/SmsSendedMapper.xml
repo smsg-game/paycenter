@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.fantingame.pay.dao.SmsSendedDao">
+    <select id="count" resultType="int">
+        select count(*) c from sms_sended;
+    </select>
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+      INSERT INTO sms_sended(channelId,linkId,moId,mrId,mobile,dmobile,cp,msg,stype,mtype,gateway,action,servicetype,orderId,fee,status,createDatetime) 
+      VALUES(#{channelId},#{linkId},#{moId},#{mrId},#{mobile},#{dmobile},#{cp},#{msg},#{stype},#{mtype},#{gateway},#{action},#{servicetype},#{orderId},#{fee},#{status},#{createDatetime})
+    </insert>
+    <select id="getEntity"  resultType="com.fantingame.pay.entity.SmsSended">
+      SELECT * FROM sms_sended
+    </select>
+    <select id="getEntityById" parameterType="String" resultType="com.fantingame.pay.entity.SmsSended">
+      SELECT * FROM sms_sended WHERE id=#{id}
+    </select>
+    <select id="getEntityByLinkId" parameterType="String" resultType="com.fantingame.pay.entity.SmsSended">
+      SELECT * FROM sms_sended WHERE linkId=#{linkId}
+    </select>
+    <delete id="delete" parameterType="String">
+      DELETE FROM sms_sended WHERE id=#{id}
+    </delete>
+    <update id="update" parameterType="com.fantingame.pay.entity.SmsSended">
+      UPDATE sms_sended
+      SET channelId=#{channelId},linkId=#{linkId},moId=#{moId},mrId=#{mrId},mobile=#{mobile},dmobile=#{dmobile},cp=#{cp},msg=#{msg},stype=#{stype},
+      mtype=#{mtype},gateway=#{gateway},action=#{action},servicetype=#{servicetype},orderId=#{orderId},fee=#{fee},status=#{status}
+      WHERE id=#{id}
+    </update>
+    <update id="updateMo" parameterType="com.fantingame.pay.entity.SmsSended">
+      UPDATE sms_sended
+      SET channelId=#{channelId},moId=#{moId},mobile=#{mobile},dmobile=#{dmobile},cp=#{cp},msg=#{msg},stype=#{stype},
+      mtype=#{mtype},gateway=#{gateway},action=#{action},servicetype=#{servicetype},orderId=#{orderId},fee=#{fee}
+      WHERE linkId=#{linkId}
+    </update>
+    <update id="updateMr" parameterType="com.fantingame.pay.entity.SmsSended">
+      UPDATE sms_sended
+      SET mrId=#{mrId},status=#{status}
+      WHERE linkId=#{linkId}
+    </update>
+    <select id="countSendedToday" resultType="int" parameterType="com.fantingame.pay.entity.SmsSended">
+        select count(*) c from sms_sended where to_days(createDatetime)=to_days(now()) and status is not null and mobile=#{mobile} and channelId=#{channelId};
+    </select>
+    <select id="countSendedMonth" resultType="int" parameterType="com.fantingame.pay.entity.SmsSended">
+        select count(*) c from sms_sended where DATE_FORMAT(createDatetime,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m') and status is not null and mobile=#{mobile} and channelId=#{channelId};
+    </select>
+    <select id="countMoneyToday" resultType="int" parameterType="com.fantingame.pay.entity.SmsSended">
+        select COALESCE(sum(fee),0) c from sms_sended where to_days(createDatetime)=to_days(now()) and status='success' and mobile=#{mobile} and channelId=#{channelId};
+    </select>
+    <select id="countMoneyMonth" resultType="int" parameterType="com.fantingame.pay.entity.SmsSended">
+        select COALESCE(sum(fee),0) c from sms_sended where DATE_FORMAT(createDatetime,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m') and status='success' and mobile=#{mobile} and channelId=#{channelId};
+    </select>
+</mapper>

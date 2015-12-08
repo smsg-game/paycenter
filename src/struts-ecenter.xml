@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="ecenter" namespace="/ecenter" extends="global">
+	
+	
+		<global-results>
+			<result name="error" type="dispatcher">/WEB-INF/jsp/module/result/error.jsp</result>
+			<result name="pay_result" type="dispatcher">/WEB-INF/jsp/module/result/result.jsp</result>
+			<result name="fail" type="dispatcher">/WEB-INF/jsp/module/result/fail.jsp</result>
+		</global-results>
+		<!-- mycard api获取校验码 -->
+		<action name="apiAuth" class="com.fantingame.pay.action.ecenter.MyCardAction" method="apiAuth">
+			<result name="json" type="json">
+		       <param name="ignoreHierarchy">false</param>
+		       <param name="includeProperties">status,msg,data,data.*</param>
+		    </result>
+		</action>
+		<!-- mycard api支付 -->
+		<action name="apiPay" class="com.fantingame.pay.action.ecenter.MyCardAction" method="apiPay">
+			<result name="json" type="json">
+		       <param name="ignoreHierarchy">false</param>
+		       <param name="includeProperties">status,msg,data,data.*</param>
+		    </result>
+		</action>
+		<!-- mycard sdk获取校验码 -->
+		<action name="sdkAuth" class="com.fantingame.pay.action.ecenter.MyCardAction" method="sdkAuth">
+			<result name="json" type="json">
+		       <param name="ignoreHierarchy">false</param>
+		       <param name="includeProperties">status,msg,data,data.*</param>
+		    </result>
+		</action>	
+		<!-- mycard sdk执行支付-->
+		<action name="sdkRequestPay" class="com.fantingame.pay.action.ecenter.MyCardAction" method="sdkRequestPay">
+			<result name="json" type="json">
+		       <param name="ignoreHierarchy">false</param>
+		       <param name="includeProperties">status,msg,data,data.*</param>
+		    </result>
+		</action>
+		<!-- mol 申请订单地址-->
+		<action name="generatorPaymentUrl" class="com.fantingame.pay.action.ecenter.MolAction" method="generatorPaymentUrl">
+			<result name="json" type="json">
+		       <param name="ignoreHierarchy">false</param>
+		       <param name="includeProperties">status,msg,data,data.*</param>
+		    </result>
+		</action>			
+		<action name="payTrade" class="com.fantingame.pay.action.ecenter.PayTradeAction">
+		</action>
+		<!--下单接口-->
+		<action name="trade" class="com.fantingame.pay.action.ecenter.TradeAction">
+			<result name="json" type="json">
+		       <param name="ignoreHierarchy">false</param>
+		       <param name="includeProperties">status,msg,data,data.*</param>
+		    </result>
+		</action>
+		<!-- JSON获取订单支付结果接口-->
+		<action name="tradeResult" class="com.fantingame.pay.action.ecenter.TradeResultAction">
+		  <result name="json" type="json">
+			  <param name="ignoreHierarchy">false</param>
+		      <param name="includeProperties">status,msg</param>
+		  </result>
+		</action>
+		<!--EB支付接口接口-->
+		<action name="eb" class="com.fantingame.pay.action.ecenter.EbAction">
+			<result name="json" type="json">
+			   <param name="ignoreHierarchy">false</param>
+		       <param name="includeProperties">status,msg,data,data.*</param>
+			</result>
+		</action>
+		<!--摩9接口-->
+		<action name="mo9" class="com.fantingame.pay.action.module.Mo9Action">
+			<result name="redirect" type="redirect">${redirectUrl}</result>
+		</action>
+		<!--支付宝手机网站接口-->
+		<action name="ali" class="com.fantingame.pay.action.ecenter.AlipayAction">
+		    <result name="json" type="json">
+			   <param name="ignoreHierarchy">false</param>
+		       <param name="includeProperties">status,msg,data,data.*</param>
+			</result>
+			<result name="redirect" type="redirect">${redirectUrl}</result>
+		</action>
+
+		
+		
+		<!--支付宝pc接口-->
+		<action name="alipc" class="com.fantingame.pay.action.ecenter.AlipayPcAction">
+		    <result name="json" type="json">
+			   <param name="ignoreHierarchy">false</param>
+		       <param name="includeProperties">status,msg,data,data.*</param>
+			</result>
+			<result name="redirect" type="redirect">${redirectUrl}</result>
+		</action>
+		<!--易联银联手机支付接口-->
+		<action name="uni" class="com.fantingame.pay.action.ecenter.UnionPayAction">
+		    <result name="json" type="json">
+			   <param name="ignoreHierarchy">false</param>
+		       <param name="includeProperties">status,msg,data,data.*</param>
+			</result>
+			<result name="redirect" type="redirect">${redirectUrl}</result>
+		</action>
+		<!--卡类支付，根据不同的卡类跳转到不同的卡号密码输入页面-->
+		<action name="card" class="com.fantingame.pay.action.ecenter.CardAction">
+			<result name="phonecard" type="dispatcher">/WEB-INF/jsp/module/card/phonecard.jsp</result>
+			<result name="gamecard" type="dispatcher">/WEB-INF/jsp/module/card/gamecard.jsp</result>
+			<result name="qqcard" type="dispatcher">/WEB-INF/jsp/module/card/qqcard.jsp</result>
+			<result name="json" type="json">
+		       <param name="ignoreHierarchy">false</param>
+		       <param name="includeProperties">status,msg,invoice</param>
+		    </result>
+		</action>
+		<!--用于处理完成支付后页面回调接口-->
+		<action name="redirect" class="com.fantingame.pay.action.ecenter.RedirectAction">
+		    <result name="json" type="json">
+			   <param name="ignoreHierarchy">false</param>
+		       <param name="includeProperties">data,data.*</param>
+			</result>
+			<result name="redirect" type="redirect">${redirectUrl}</result>
+			<result name="success" type="dispatcher">/WEB-INF/jsp/module/result/result.jsp</result>
+			<result name="charge">/WEB-INF/jsp/module/charge/select_channel.jsp</result>
+		</action>
+		<!-- 用户详细信息页 -->
+		<action name="userDetail" class="com.fantingame.pay.action.ecenter.UserAction" method="userDetail">
+			<result name="success" type="dispatcher">/WEB-INF/jsp/module/user/user_detail.jsp</result>
+		</action>
+		<!-- json方式获取用户流水 -->
+        <action name="dealHistory" class="com.fantingame.pay.action.ecenter.UserAction" method="userDetail">
+			<result name="success" type="json"><param name="includeProperties">dealflows,dealflows.*</param></result>
+		</action>
+		<action name="tradeHistory" class="com.fantingame.pay.action.ecenter.UserAction" method="tradeHistory">
+			<result name="success" type="json"><param name="includeProperties">data,data.*</param></result>
+		</action>
+		<!-- 充值 -->
+		<action name="charge" class="com.fantingame.pay.action.ecenter.ChargeAction">
+			<result name="json" type="json">
+			   <param name="ignoreHierarchy">false</param>
+		       <param name="includeProperties">status,msg,data,data.*</param>
+			</result>
+		</action>
+		<action name="sms" class="com.fantingame.pay.action.ecenter.SmsAction">
+		    <result name="sms_easou" type="dispatcher">/module/smsEasou.e</result>
+		    <result name="sms_yhxf" type="dispatcher">/WEB-INF/jsp/module/sms/yhxf/select_amount.jsp</result>
+		    <result name="sms_yhxf_app" type="dispatcher">/WEB-INF/jsp/mobile/sms/yhxf/select_amount.jsp</result>
+		</action>
+		<action name="smsEasou" class="com.fantingame.pay.action.module.SmsEasouAction">
+		    <result name="success" type="dispatcher">/WEB-INF/jsp/module/sms/easou/check_success.jsp</result>
+		    <result name="fail" type="dispatcher">/WEB-INF/jsp/module/sms/easou/check_fail.jsp</result>
+		</action>
+		<action name="smsYhxf" class="com.fantingame.pay.action.module.SmsYhxfAction">
+		    <result name="json" type="json">
+		        <param name="ignoreHierarchy">false</param>
+		        <param name="includeProperties">status,msg,number,invoice</param>
+		    </result>
+		    <result name="success" type="dispatcher">/WEB-INF/jsp/module/sms/yhxf/check_success.jsp</result>
+		</action>
+	</package>
+
+</struts>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.fantingame.pay.dao.PayNotifyPushDao">
+    <select id="count" resultType="int">
+        select count(*) c from pay_notify_push;
+    </select>
+    <insert id="save">
+      INSERT INTO pay_notify_push(invoice,notifyUrl,tradeId,paidFee,reqFee,times,status,msg,createDatetime) 
+      VALUES(#{invoice},#{notifyUrl},#{tradeId},#{paidFee},#{reqFee},#{times},#{status},#{msg},#{createDatetime})
+    </insert>
+    <select id="getEntity"  resultType="com.fantingame.pay.entity.PayNotifyPush">
+      SELECT * FROM pay_notify_push
+    </select>
+    <select id="getEntityById" parameterType="String" resultType="com.fantingame.pay.entity.PayNotifyPush">
+      SELECT * FROM pay_notify_push WHERE id=#{id}
+    </select>
+    <delete id="delete" parameterType="String">
+      DELETE FROM pay_notify_push WHERE id=#{id}
+    </delete>
+    <update id="update" parameterType="com.fantingame.pay.entity.PayNotifyPush">
+      UPDATE pay_notify_push
+      SET invoice=#{invoice},notifyUrl=#{notifyUrl},tradeId=#{tradeId},paidFee=#{paidFee},reqFee=#{reqFee},times=#{times},status=#{status},msg=#{msg}
+      WHERE id=#{id}
+    </update>
+</mapper>

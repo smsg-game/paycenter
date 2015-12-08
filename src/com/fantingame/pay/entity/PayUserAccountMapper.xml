@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.fantingame.pay.dao.PayUserAccountDao">   
+	<select id="count" resultType="int">
+        select count(*) c from pay_user_account;
+    </select>
+    <insert id="save">
+      INSERT INTO pay_user_account(juserId,fee,username) 
+      VALUES(#{juserId},#{fee},#{username})
+    </insert>
+    
+    <update id="update" parameterType="com.fantingame.pay.entity.PayUserAccount">
+    	update pay_user_account set juserId=#{juserId},fee=#{fee},username=#{username}
+    	where id=#{id}
+    </update>
+    
+    <update id="updEb" parameterType="com.fantingame.pay.entity.PayUserAccount">
+    	update pay_user_account set fee  = fee + #{fee}
+    	where id=#{id} and fee + #{fee}>=0
+    </update>
+    
+    <select id="getEntity"  resultType="com.fantingame.pay.entity.PayUserAccount">
+      SELECT * FROM pay_user_account
+    </select>
+    <select id="getEntityById" parameterType="String" resultType="com.fantingame.pay.entity.PayUserAccount">
+      SELECT * FROM pay_user_account WHERE id=#{id}
+    </select>
+    <delete id="delete" parameterType="String">
+      DELETE FROM pay_user_account WHERE id=#{id}
+    </delete>
+    <select id="getUserAcountByJuserId" resultType="com.fantingame.pay.entity.PayUserAccount">
+    	select * from pay_user_account where  juserId=#{juserId}
+    </select>
+    
+</mapper>

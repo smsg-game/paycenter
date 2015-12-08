@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.fantingame.pay.dao.PayEbDao">
+     <select id="getListByMyCardNum" parameterType="String" resultType="com.fantingame.pay.entity.PayEb">
+         select * from pay_eb where status=1 and receiveMsg=#myCardNum#
+    </select>
+    <select id="getListBySuccessTime" parameterType="java.util.HashMap" resultType="com.fantingame.pay.entity.PayEb">
+         select * from pay_eb where status=1 and successDatetime between #startTime# and #endTime# and (channelId=#c1# or channelId=#c2#)
+    </select>
+    <select id="count" resultType="int">
+        select count(*) c from pay_eb;
+    </select>
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+      INSERT INTO pay_eb(invoice,tradeNo,channelId,easouId,paidFee,paidCurrency,reqFee,reqCurrency,rate,status,receiveStatus,receiveMsg,createDatetime,successDatetime,otherInfo) 
+      VALUES(#{invoice},#{tradeNo},#{channelId},#{easouId},#{paidFee},#{paidCurrency},#{reqFee},#{reqCurrency},#{rate},#{status},#{receiveStatus},#{receiveMsg},#{createDatetime},#{successDatetime},#{otherInfo})
+    </insert>
+    <select id="getEntity"  resultType="com.fantingame.pay.entity.PayEb">
+      SELECT * FROM pay_eb
+    </select>
+    <select id="getEntityById" parameterType="Long" resultType="com.fantingame.pay.entity.PayEb">
+      SELECT * FROM pay_eb WHERE id=#{id}
+    </select>
+    <select id="getEntityByCondition" parameterType="com.fantingame.pay.entity.PayEb" resultType="com.fantingame.pay.entity.PayEb">
+      SELECT * FROM `pay_eb` p WHERE  p.`easouId` =#{easouId} AND  p.`status` = #{status} 
+      AND p.`channelId` = #{channelId} 
+      <![CDATA[ AND p.`createDatetime` >= #{createDatetime} ]]>
+      AND p.`reqFee` = #{reqFee}
+      order by p.`createDatetime`
+      LIMIT 1
+    </select>
+    <!-- 查找1天之内，子ID（ID的后面4位）为短信内容的后四位的订单 -->
+    <select id="getEntityBySubId" parameterType="Integer" resultType="com.fantingame.pay.entity.PayEb">
+      SELECT * FROM pay_eb 
+      WHERE date_add(createDatetime, interval 1 day)>=now() 
+      and RIGHT(id,4)=#{subId}
+      and channelId=1000200060000001
+    </select>
+    <select id="getEntityByInvoice" parameterType="String" resultType="com.fantingame.pay.entity.PayEb">
+      SELECT * FROM pay_eb WHERE invoice=#{invoice}
+    </select>
+    <delete id="delete" parameterType="String">
+      DELETE FROM pay_eb WHERE id=#{id}
+    </delete>
+    <delete id="deleteByInvoice" parameterType="String">
+      DELETE FROM pay_eb WHERE invoice=#{invoice}
+    </delete>
+    <update id="update" parameterType="com.fantingame.pay.entity.PayEb">
+      update pay_eb
+      SET invoice=#{invoice},tradeNo=#{tradeNo},channelId=#{channelId},easouId=#{easouId},paidFee=#{paidFee},
+      paidCurrency=#{paidCurrency},reqFee=#{reqFee},reqCurrency=#{reqCurrency},rate=#{rate},
+      status=#{status},receiveStatus=#{receiveStatus},receiveMsg=#{receiveMsg},successDatetime=#{successDatetime}
+      WHERE id=#{id}
+    </update>
+    
+    <update id="updAfterPay" parameterType="com.fantingame.pay.entity.PayEb">
+    	update pay_eb set status=#{status},tradeNo=#{tradeNo},paidFee=#{paidFee},paidCurrency=#{paidCurrency},
+    	receiveStatus=#{receiveStatus},receiveMsg=#{receiveMsg},successDatetime=#{successDatetime}
+    	WHERE id=#{id} 
+    </update>
+    
+</mapper>
