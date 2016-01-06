@@ -145,8 +145,8 @@ public class BaseAction extends ActionSupport {
 		payTrade.setStatus(Constants.EASOU_SERVER_STATUS_CREATE);
 		payTrade.setQn(qn);
 		payTrade.setCookieQn(getCookieByName(Constants.EASOU_COOKIE_QN_NAME));
-		payTrade.setTradeDesc("用户F币充值");
-		payTrade.setTradeName("用户F币充值");
+		payTrade.setTradeDesc("用户X币充值");
+		payTrade.setTradeName("用户X币充值");
 		String invoice = UUID.randomUUID().toString().replace("-", "");
 		payTrade.setTradeId(getUser().getId()+""+System.currentTimeMillis());//以时间作为订单ID
 		payTrade.setInvoice(invoice);

@@ -67,6 +67,7 @@
 		<action name="payConfirmOfYeepay" class="com.fantingame.pay.action.mobile.confirm.PayConfirmOfYeePayAction"></action>
 		<action name="moduleNotifyFromAlipay" class="com.fantingame.pay.action.module.notify.ModuleNotifyFromAlipayAction"></action>
 		<action name="moduleTerNotifyFromAlipay" class="com.fantingame.pay.action.module.notify.ModuleTerNotifyFromAlipayAction"></action>
+		<action name="newMobileNotifyFromAlipay" class="com.fantingame.pay.action.mobile.notify.NotifyFromNewMobileAlipayAction"></action>
 		<!-- mycard提供差异报表(SDK) -->
 		<action name="mycardSdkService" class="com.fantingame.pay.action.mobile.notify.NotifyFromMyCardAction" method="mycardSdkService">
 		</action>

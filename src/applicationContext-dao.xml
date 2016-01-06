@@ -34,14 +34,14 @@
 		<aop:pointcut id="allManagerMethod" expression="execution(* com.fantingame.pay.manager.*Manager.*(..))"/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="allManagerMethod"/>
 	  </aop:config>
-	  <!--
+	  <!---->
 	 <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName">
-			<value>java:comp/env/jdbc/ftPay</value>
+			<value>java:comp/env/jdbc/xwPay</value>
 		</property>
-    </bean>-->
+    </bean>
       
-     <!--   -->
+     <!--   
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">  
 	<property name="driverClassName">  
 	<value>com.mysql.jdbc.Driver</value>  
@@ -55,7 +55,7 @@
 	<property name="password">  
 	<value>zgame@123</value>  
 	</property>  
-	</bean> 
+	</bean> -->
 	
     <!-- 配置sessionFactory -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" scope="singleton">

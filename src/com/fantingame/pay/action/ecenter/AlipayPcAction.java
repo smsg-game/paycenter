@@ -68,9 +68,9 @@ public class AlipayPcAction extends ECenterBaseAction {
 //		sParaTemp.put("return_url", channel.getReturnUrl());
 		sParaTemp.put("seller_email",channel.getAccount());
 		sParaTemp.put("out_trade_no",payEb.getId().toString());
-		sParaTemp.put("subject","f币充值");
+		sParaTemp.put("subject","X币充值");
 		sParaTemp.put("total_fee",payEb.getReqFee());
-		sParaTemp.put("body","f币充值");
+		sParaTemp.put("body","X币充值");
 		sParaTemp.put("show_url", channel.getMerchantUrl());
 		sParaTemp.put("anti_phishing_key","");
 		sParaTemp.put("exter_invoke_ip","");

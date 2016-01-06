@@ -37,7 +37,7 @@ public class EbAction extends ECenterBaseAction {
 			//如果E币不足以支付订单，跳转到提示页
 			if (eb == null || eb < reqEb) {
 				setStatus("eb_not_enough");
-				setMsg("f币余额不足");
+				setMsg("X币余额不足");
 				UserPayTrade userPayTrade = makeData(payTrade);
 				setData(userPayTrade);
 				return JSON;

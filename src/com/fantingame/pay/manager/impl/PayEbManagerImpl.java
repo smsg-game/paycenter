@@ -133,7 +133,7 @@ public class PayEbManagerImpl implements PayEbManager {
 				reqEb = Math.round(reqEb*payChannel.getRate());
 				payUserAccountManager.updEb(Long.valueOf(payEb.getEasouId()),payTrade.getTradeName(),payTrade.getInvoice(), payChannel.getName(),reqEb);
 			}
-			//TODO 此处注销  同意都需要使用f币支付  不再具有自动扣款功能了！
+			//TODO 此处注销  同意都需要使用X币支付  不再具有自动扣款功能了！
 			//EB充值除外的动作
 //			if(payTrade.getPartnerId()!=Constants.PARTNER_ID_SELF){
 //				long reqEb = EbTools.rmbToEb(payTrade.getReqFee());

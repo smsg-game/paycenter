@@ -25,6 +25,7 @@ import com.fantingame.pay.action.common.LoginAction;
 import com.fantingame.pay.action.ecenter.ECenterBaseAction;
 import com.fantingame.pay.action.mobile.notify.NotifyFromMolAction;
 import com.fantingame.pay.action.mobile.notify.NotifyFromMyCardAction;
+import com.fantingame.pay.action.mobile.notify.NotifyFromNewMobileAlipayAction;
 import com.fantingame.pay.action.mobile.notify.NotifyFromUnionPayAction;
 import com.fantingame.pay.action.mobile.old.NotifyFromAlipayAction;
 import com.fantingame.pay.action.mobile.old.NotifyFromMo9Action;
@@ -72,7 +73,7 @@ public class LoginInterceptor extends AbstractInterceptor {
         if(action instanceof LoginAction || action instanceof NotifyFromAlipayAction 
         		|| action instanceof NotifyFromMo9Action || action instanceof PayTradeAction
         		|| action instanceof NotifyFromTenpayAction || action instanceof com.fantingame.pay.action.pc.nofity.NotifyFromAlipayAction
-        		|| action instanceof UserPayDetailAction || action instanceof NotifyFromUnionPayAction || action instanceof NotifyFromMyCardAction || action instanceof NotifyFromMolAction){
+        		|| action instanceof UserPayDetailAction || action instanceof NotifyFromUnionPayAction || action instanceof NotifyFromMyCardAction || action instanceof NotifyFromMolAction || action instanceof NotifyFromNewMobileAlipayAction){
         	return invocation.invoke();
         }
 		//判断用户有没有登录,

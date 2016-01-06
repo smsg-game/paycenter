@@ -49,6 +49,43 @@ public class AlipayAction extends ECenterBaseAction {
 	
 	private Map<String,String> data = new TreeMap<String, String>();
 	
+	private static final String NOTIFY_URL = "http://pay.sg.xworldgame.com:8927/service/newMobileNotifyFromAlipay.e";
+	//新的移动支付
+	public String execute1(){
+		try {
+			payTrade = getTradeByInvoice(invoice); //获取订单
+			if(payTrade == null) throw new EasouPayException(TradeCode.EASOU_CODE_140.code,TradeCode.EASOU_CODE_140.msgC);
+			PayEb payEb = newPayEbOrder(invoice,Constants.CHANNEL_ID_ALIPAY_MODULE,payTrade.getReqFee(),null); //下订单
+			PayChannel channel = null;
+			if("android".equals(ty)) {
+				channel = getChannelById(Constants.CHANNEL_ID_ALIPAY_MODULE_TER);	//获取支付商信息
+			} else {
+				channel = getChannelById(Constants.CHANNEL_ID_ALIPAY_MODULE);	//获取支付商信息
+			}
+			
+				setStatus(SUCCESS);
+				if("android".equals(ty)) {
+					data.put(Constants.FIELD_URL,"");
+					data.put("notify_url", NOTIFY_URL);
+					data.put("out_trade_no", payEb.getId()+"");
+					data.put(Constants.FIELD_INVOICE,payEb.getInvoice());
+					return JSON;
+				} else {
+					data.put(Constants.FIELD_URL,"");
+					data.put("notify_url", NOTIFY_URL);
+					data.put("out_trade_no", payEb.getId()+"");
+					data.put(Constants.FIELD_INVOICE,payEb.getInvoice());
+					return JSON;
+				}
+		} catch (Exception e) {
+			logger.error(e.getMessage(),e);
+			e.printStackTrace();
+			setStatus(FAIL);
+			data.put(Constants.FIELD_CODE,TradeCode.EASOU_CODE_NEG_1.code);
+			data.put(Constants.FIELD_MSG,TradeCode.EASOU_CODE_NEG_1.msgE);
+			return JSON;
+		}
+	}
 	//使用支付宝支付订单
 	public String execute(){
 		try {
@@ -126,6 +163,26 @@ public class AlipayAction extends ECenterBaseAction {
 			PayTrade trade = newChargeTrade(money,null,"ecenter",invoiceId);
 			if(trade!=null) invoice = trade.getInvoice();
 			return this.execute();
+		} catch (Exception e) {
+			logger.error(e.getMessage(),e);
+		}
+		return JSON;
+	}
+	
+	
+	//支付宝充值,先生成订单，再走正常流程
+	public String aliCharge1(){
+		try {
+			isCharge = true;
+			String money = getParam("money");
+			String otherMoney = getParam("otherMoney");
+			String invoiceId=getParam(Constants.FIELD_INVOICE_ID);
+			if(otherMoney!=null && otherMoney.length()>0 && StringTools.isNum(otherMoney)){ //优先使用用户输入的自定义金额
+				money = otherMoney;
+			}
+			PayTrade trade = newChargeTrade(money,null,"ecenter",invoiceId);
+			if(trade!=null) invoice = trade.getInvoice();
+			return this.execute1();
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
 		}

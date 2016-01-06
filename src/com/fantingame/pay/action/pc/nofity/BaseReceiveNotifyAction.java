@@ -76,7 +76,7 @@ public class BaseReceiveNotifyAction extends BaseAction {
 			long reqEb = EbTools.rmbToEb(paidAmt);
 			//加上一个折算率
 			reqEb = Math.round(reqEb*payChannel.getRate());
-			payUserAccountManager.updEb(Long.valueOf(payEb.getEasouId()),"F币充值",payEb.getInvoice(), payChannel.getName(),reqEb);
+			payUserAccountManager.updEb(Long.valueOf(payEb.getEasouId()),"X币充值",payEb.getInvoice(), payChannel.getName(),reqEb);
 		}
 		payEb.setPaidFee(paidAmt);
 		payEb.setPaidCurrency("CNY");
